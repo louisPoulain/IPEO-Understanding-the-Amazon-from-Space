@@ -65,7 +65,7 @@ class DatasetAmazon(Dataset):
         self.data = []                                  # list of tuples of (image path, label class)
         if self.val:
             for imgIndex in self.SPLITS['val']:
-                imgName = os.path.join(data_loc, f'train_{str(imgIndex)}.jpg') 
+                imgName = os.path.join(data_loc, f'train-jpg/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
                 self.data.append((
                     imgName,
@@ -73,7 +73,7 @@ class DatasetAmazon(Dataset):
                 ))
         elif self.test:
             for imgIndex in self.SPLITS['test']:
-                imgName = os.path.join(data_loc, f'train_{str(imgIndex)}.jpg') 
+                imgName = os.path.join(data_loc, f'train-jpg/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
                 self.data.append((
                     imgName,
@@ -81,7 +81,7 @@ class DatasetAmazon(Dataset):
                 ))
         else:
             for imgIndex in self.SPLITS['train']:
-                imgName = os.path.join(data_loc, f'train_{str(imgIndex)}.jpg') 
+                imgName = os.path.join(data_loc, f'train-jpg/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
                 self.data.append((
                     imgName,
