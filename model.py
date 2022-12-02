@@ -46,7 +46,7 @@ class testModel(nn.Module):
         if self.pretrained:
             self.model = torchvision.models.AlexNet() ## A CHANGER
         else:
-            layer1 = blk.DoubleConv(in_c=3, out_c=8, mid_c=4, kernel_size=3) # 256x256
+            layer1 = blk.DoubleConv(in_c=4, out_c=8, mid_c=6, kernel_size=3) # 256x256
             layer2 = blk.DownSample(in_c=8, out_c=16, kernel_size=3, nb_conv=1)    # 128x128
             layer3 = blk.DownSample(in_c=8, out_c=16, kernel_size=3, nb_conv=1)    # 64x64
             layer4 = blk.DownSample(in_c=16, out_c=32, kernel_size=3, nb_conv=1)    #32x32
