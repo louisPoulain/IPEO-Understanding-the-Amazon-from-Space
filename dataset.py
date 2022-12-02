@@ -6,6 +6,7 @@ from torch.utils.data import Dataset
 import numpy as np
 from PIL import Image
 import pandas as pd
+import torchvision.transforms as T
 
 #def get_data(path):
 #    if not os.path.exists("/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip"):
@@ -55,7 +56,7 @@ class DatasetAmazon(Dataset):
 
     def __getitem__(self, index):
         im_name, label = self.data[index]
-        img = Image.open(im_name)
+        img = T.ToTensor(Image.open(im_name))
         #if self.transforms is not None:
         #    img = self.transforms(img)
         return img, label
@@ -72,7 +73,7 @@ class DatasetAmazon(Dataset):
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
                 self.data.append((
                     imgName,
-                    self.LABEL_CLASSES.iloc[imgIndex]         # get index for label class
+                    self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         elif self.test:
             for imgIndex in self.SPLITS['test']:
@@ -80,7 +81,7 @@ class DatasetAmazon(Dataset):
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
                 self.data.append((
                     imgName,
-                    self.LABEL_CLASSES.iloc[imgIndex]         # get index for label class
+                    self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         else:
             for imgIndex in self.SPLITS['train']:
@@ -88,7 +89,7 @@ class DatasetAmazon(Dataset):
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
                 self.data.append((
                     imgName,
-                    self.LABEL_CLASSES.iloc[imgIndex]         # get index for label class
+                    self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         if self.full:
             if self.tiny:
