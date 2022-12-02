@@ -7,12 +7,14 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 
-def get_data():
+def get_data(path):
     if not os.path.exists("/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip"):
             print(f"downloading IPEO_Planet_project.zip")
             urllib.request.urlretrieve("https://drive.google.com/file/d/1zS6wtrRfTeLaHwlS0HDlNiAc_b_ZrTeX/view?usp=share_link",
                                        "/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip")
-    with zipfile.ZipFile("/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip", 'r') as zip_ref:
+    else:
+        print(3)
+    with zipfile.ZipFile(path, 'r') as zip_ref:
         zip_ref.extractall()
 
 
