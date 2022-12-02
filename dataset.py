@@ -61,7 +61,7 @@ class DatasetAmazon(Dataset):
         return img, label
 
     def __len__(self):
-        return self.data[0].shape[0]
+        return len(self.data)
 
     def load_data(self):
         data_loc = "../IPEO_Planet_project/"
