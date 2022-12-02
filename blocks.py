@@ -20,12 +20,12 @@ class DoubleConv(nn.Module):
         super().__init__()
         if mid_c is None:
             mid_c = out_c
-        self.conv1 = nn.Conv2d(in_channels=in_c, out_channels=mid_c, kernel_size=kernel_size, padding=kernel_size//2)
-        self.b_norm1 = nn.BatchNorm2d(num_features=mid_c)
-        self.lrelu = nn.LeakyReLU(inplace=True)
-        self.conv2 = nn.Conv2d(in_channels=mid_c, out_channels=out_c, kernel_size=kernel_size, padding=kernel_size//2)
-        self.b_norm2 = nn.BatchNorm2d(num_features=out_c)
-        self.dbl_conv = nn.Sequential(self.conv1, self.b_norm1, self.lrelu, self.conv2, self.b_norm2, self.lrelu)
+        conv1 = nn.Conv2d(in_channels=in_c, out_channels=mid_c, kernel_size=kernel_size, padding=kernel_size//2)
+        b_norm1 = nn.BatchNorm2d(num_features=mid_c)
+        lrelu = nn.LeakyReLU(inplace=True)
+        conv2 = nn.Conv2d(in_channels=mid_c, out_channels=out_c, kernel_size=kernel_size, padding=kernel_size//2)
+        b_norm2 = nn.BatchNorm2d(num_features=out_c)
+        self.dbl_conv = nn.Sequential(conv1, b_norm1, lrelu,conv2,b_norm2, lrelu)
 
     def forward(self, x):
         return self.dbl_conv(x)
