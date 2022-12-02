@@ -5,6 +5,7 @@ import urllib.request
 from torch.utils.data import Dataset
 import numpy as np
 from PIL import Image
+import pandas as pd
 
 def get_data():
     if not os.path.exists("IPEO_Planet_project.zip"):
@@ -16,7 +17,7 @@ def get_data():
 
 
 class DatasetAmazon(Dataset):
-    def __init__(self, full=False, tiny=False, test=False, val=False, split=[0.6, 0.15, 0.25]):
+    def __init__(self, full=False, tiny=False, test=False, val=False, split=[0.6, 0.15, 0.25], path_to_labels=None):
         """images dataset initialization
 
         Args:
@@ -38,16 +39,16 @@ class DatasetAmazon(Dataset):
             raise ValueError('You need to provide a splitting value for the train, val, and test (3 values)')
 
         ###### A FAIRE PLUS INTELLIGEMMENT #####
-        train_stop = int(np.floor(self.plit[0]*40479))
-        val_stop = int(np.floor(self.plit[0]+self.split[1]*40479))
+        train_stop = int(np.floor(self.split[0]*40479))
+        val_stop = int(np.floor(self.split[0]+self.split[1]*40479))
         
-        SPLITS = {
+        self.SPLITS = {
         'train': list(range(0, train_stop)),    
         'val':   list(range(train_stop+1, val_stop)),   
         'test':  list(range(val_stop+1, 40479))   
         }
         ########################################
-        self.LABEL_CLASSES = get_csv() ## A CREER
+        self.LABEL_CLASSES = pd.read_pickle(path_to_labels)
         self.load_data()
 
     def __getitem__(self, index):
