@@ -17,7 +17,6 @@ class SimpleConv(nn.Module):
 
 class DoubleConv(nn.Module):
     def __init__(self, in_c, out_c, mid_c=None, kernel_size=3):
-        super(DoubleConv, self).__init__()
         if mid_c is None:
             mid_c = out_c
         conv1 = nn.Conv2d(in_channels=in_c, out_channels=mid_c, kernel_size=kernel_size, padding=kernel_size//2)
