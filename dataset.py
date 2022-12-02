@@ -7,15 +7,15 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 
-def get_data(path):
-    if not os.path.exists("/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip"):
-            print(f"downloading IPEO_Planet_project.zip")
-            urllib.request.urlretrieve("https://drive.google.com/file/d/1zS6wtrRfTeLaHwlS0HDlNiAc_b_ZrTeX/view?usp=share_link",
-                                       "/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip")
-    else:
-        print(3)
-    with zipfile.ZipFile(path, 'r') as zip_ref:
-        zip_ref.extractall()
+#def get_data(path):
+#    if not os.path.exists("/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip"):
+#            print(f"downloading IPEO_Planet_project.zip")
+#            urllib.request.urlretrieve("https://drive.google.com/file/d/1zS6wtrRfTeLaHwlS0HDlNiAc_b_ZrTeX/view?usp=share_link",
+#                                       "/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip")
+#    else:
+#        print(3)
+#    with zipfile.ZipFile(path, 'r') as zip_ref:
+#        zip_ref.extractall()
 
 
 class DatasetAmazon(Dataset):
@@ -64,7 +64,7 @@ class DatasetAmazon(Dataset):
         return self.y.shape[0]
 
     def load_data(self):
-        data_loc = "../IPEO_Planet_project/IPEO_Planet_project/"
+        data_loc = "../IPEO_Planet_project/"
         self.data = []                                  # list of tuples of (image path, label class)
         if self.val:
             for imgIndex in self.SPLITS['val']:
