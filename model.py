@@ -11,7 +11,7 @@ import blocks as blk
 
 class PlanetModel(pl.LightningModule):
     def __init__(self, model = None):
-        super().__init__(self)
+        super().__init__()
         self.model = model
 
     def forward(self, x):
