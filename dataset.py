@@ -56,9 +56,9 @@ class DatasetAmazon(Dataset):
 
     def __getitem__(self, index):
         im_name, label = self.data[index]
-        img = T.ToTensor(Image.open(im_name))
-        #if self.transforms is not None:
-        #    img = self.transforms(img)
+        img = Image.open(im_name)
+        transform = T.ToTensor()
+        img = transform(img)
         return img, label
 
     def __len__(self):
