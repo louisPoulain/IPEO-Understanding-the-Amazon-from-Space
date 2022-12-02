@@ -51,10 +51,10 @@ class testModel(nn.Module):
             layer3 = blk.DownSample(in_c=12, out_c=16, kernel_size=3, nb_conv=1)    # 64x64
             layer4 = blk.DownSample(in_c=16, out_c=32, kernel_size=3, nb_conv=1)    #32x32
             layer5 = blk.DownSample(in_c=32, out_c=64, kernel_size=3, nb_conv=1)    #16x16
-            layer6 = blk.DownSample(in_c=128, out_c=256, kernel_size=3, nb_conv=1)    #8x8
-            layer7 = blk.DownSample(in_c=256, out_c=512, kernel_size=3, nb_conv=1)    #4x4
-            layer8 = blk.DownSample(in_c=512, out_c=1024, kernel_size=3, nb_conv=1)    #2x2
-            layer9 = blk.DownSample(in_c=1024, out_c=1024, kernel_size=3, nb_conv=1)    #1x1
+            layer6 = blk.DownSample(in_c=64, out_c=128, kernel_size=3, nb_conv=1)    #8x8
+            layer7 = blk.DownSample(in_c=128, out_c=256, kernel_size=3, nb_conv=1)    #4x4
+            layer8 = blk.DownSample(in_c=256, out_c=512, kernel_size=3, nb_conv=1)    #2x2
+            layer9 = blk.DownSample(in_c=512, out_c=1024, kernel_size=3, nb_conv=1)    #1x1
             classifier = blk.Classfier(in_f=1024)
             self.model = nn.Sequential(layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, classifier)
 
