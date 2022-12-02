@@ -11,8 +11,8 @@ def get_data():
     if not os.path.exists("../IPEO_Planet_project.zip"):
             print(f"downloading IPEO_Planet_project.zip")
             urllib.request.urlretrieve("https://drive.google.com/file/d/1zS6wtrRfTeLaHwlS0HDlNiAc_b_ZrTeX/view?usp=share_link",
-                                       "IPEO_Planet_project.zip")
-    with zipfile.ZipFile("IPEO_Planet_project.zip", 'r') as zip_ref:
+                                       "../IPEO_Planet_project.zip")
+    with zipfile.ZipFile("../IPEO_Planet_project.zip", 'r') as zip_ref:
         zip_ref.extractall()
 
 
