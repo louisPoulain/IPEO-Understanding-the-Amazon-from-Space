@@ -6,6 +6,7 @@ import torch
 import torch.functional as F
 import torch.nn as nn
 import torchvision
+import blocks as blk
 
 
 class PlanetModel(pl.LightningModule):
@@ -18,8 +19,8 @@ class PlanetModel(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
         x, y = batch
-        y_hat = self(x)
-        loss = F.cross_entropy(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
+        y_hat = self.model(x)
+        loss = torch.nn.MultiLabelSoftMarginLoss(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
         self.log("train_loss", loss)
         return loss
 
@@ -31,7 +32,7 @@ class PlanetModel(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self.model(x)
-        loss = F.cross_entropy(y_hat, y)
+        loss = torch.nn.MultiLabelSoftMarginLoss(y_hat, y)
         self.log("val_loss", loss)
         self.log("val_accuracy", (y_hat.argmax(1) == y).float().mean())
 
@@ -44,17 +45,18 @@ class testModel(nn.Module):
         if self.pretrained:
             self.model = torchvision.models.AlexNet() ## A CHANGER
         else:
-            self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3, padding=1) #256
-            self.conv2 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=3) # 126
-            self.maxpool = nn.MaxPool2d(kernel_size=2) # 128
-            self.enc = nn.Seqential(self.conv1, self.maxpool, self.conv2)
-            self.deconv1 = nn.ConvTranspose2d(in_channels=16, out_channels=3, kernel_size=3) # 128
-            self.upsample = nn.Upsample(scale_factor=2) # 256
-            self.dec = nn.Sequential(self.deconv1, self.upsample)
+            layer1 = blk.DoubleConv(in_c=3, out_c=8, mid_c=4, kernel_size=3) # 256x256
+            layer2 = blk.DownSample(in_c=8, out_c=16, kernel_size=3, nb_conv=1)    # 128x128
+            layer3 = blk.DownSample(in_c=8, out_c=16, kernel_size=3, nb_conv=1)    # 64x64
+            layer4 = blk.DownSample(in_c=16, out_c=32, kernel_size=3, nb_conv=1)    #32x32
+            layer5 = blk.DownSample(in_c=32, out_c=64, kernel_size=3, nb_conv=1)    #16x16
+            layer6 = blk.DownSample(in_c=128, out_c=256, kernel_size=3, nb_conv=1)    #8x8
+            layer7 = blk.DownSample(in_c=256, out_c=512, kernel_size=3, nb_conv=1)    #4x4
+            layer8 = blk.DownSample(in_c=512, out_c=1024, kernel_size=3, nb_conv=1)    #2x2
+            layer9 = blk.DownSample(in_c=1024, out_c=1024, kernel_size=3, nb_conv=1)    #1x1
+            classifier = blk.Classfier(in_f=1024)
+            self.model = nn.Sequential(layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, classifier)
+
 
     def forward(self, x):
-        if self.pretrained:
-            x = self.model(x)
-            return x
-        else:
-            None
+        return self.model(x)
