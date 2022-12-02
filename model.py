@@ -41,6 +41,7 @@ class PlanetModel(pl.LightningModule):
         
 class testModel(nn.Module):
     def __init__(self, pretrained:bool=False):
+        super().__init__()
         self.pretrained = pretrained
         if self.pretrained:
             self.model = torchvision.models.AlexNet() ## A CHANGER
