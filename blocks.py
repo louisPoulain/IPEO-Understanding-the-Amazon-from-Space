@@ -5,7 +5,7 @@ import torch.nn as nn
 class SimpleConv(nn.Module):
     def __init__(self, in_c, out_c, kernel_size=3):
         super.__init__()
-        self.conv1 = nn.Conv2d(in_channels=in_c, out_channels=out_c, kernel_size=kernel_size, padding=1)
+        self.conv1 = nn.Conv2d(in_channels=in_c, out_channels=out_c, kernel_size=kernel_size, padding=kernel_size//2)
         self.b_norm1 = nn.BatchNorm2d(num_features=out_c)
         self.lrelu = nn.LeakyReLU(inplace=True)
         
@@ -20,10 +20,10 @@ class DoubleConv(nn.Module):
         super.__init__()
         if mid_c is None:
             mid_c = out_c
-        self.conv1 = nn.Conv2d(in_channels=in_c, out_channels=mid_c, kernel_size=kernel_size, padding=1)
+        self.conv1 = nn.Conv2d(in_channels=in_c, out_channels=mid_c, kernel_size=kernel_size, padding=kernel_size//2)
         self.b_norm1 = nn.BatchNorm2d(num_features=mid_c)
         self.lrelu = nn.LeakyReLU(inplace=True)
-        self.conv2 = nn.Conv2d(in_channels=mid_c, out_channels=out_c, kernel_size=kernel_size, padding=1)
+        self.conv2 = nn.Conv2d(in_channels=mid_c, out_channels=out_c, kernel_size=kernel_size, padding=kernel_size//2)
         self.b_norm2 = nn.BatchNorm2d(num_features=out_c)
         self.dbl_conv = nn.Sequential(self.conv1, self.b_norm1, self.lrelu, self.conv2, self.b_norm2, self.lrelu)
 
