@@ -8,7 +8,7 @@ from PIL import Image
 import pandas as pd
 
 def get_data():
-    if not os.path.exists("IPEO_Planet_project.zip"):
+    if not os.path.exists("../IPEO_Planet_project.zip"):
             print(f"downloading IPEO_Planet_project.zip")
             urllib.request.urlretrieve("https://drive.google.com/file/d/1zS6wtrRfTeLaHwlS0HDlNiAc_b_ZrTeX/view?usp=share_link",
                                        "IPEO_Planet_project.zip")
@@ -62,7 +62,7 @@ class DatasetAmazon(Dataset):
         return self.y.shape[0]
 
     def load_data(self):
-        data_loc = "IPEO_Planet_project/IPEO_Planet_project/"
+        data_loc = "../IPEO_Planet_project/IPEO_Planet_project/"
         self.data = []                                  # list of tuples of (image path, label class)
         if self.val:
             for imgIndex in self.SPLITS['val']:
