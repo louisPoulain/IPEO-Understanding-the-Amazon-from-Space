@@ -28,7 +28,6 @@ class DoubleConv(nn.Module):
         self.dbl_conv = nn.Sequential(conv1, b_norm1, lrelu,conv2,b_norm2, lrelu)
 
     def forward(self, x):
-        print("dbl conv: ", x.shape)
         return self.dbl_conv(x)
 
 class DownSample(nn.Module):
