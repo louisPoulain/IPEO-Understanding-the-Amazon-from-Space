@@ -20,7 +20,7 @@ class PlanetModel(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self.model(x)
-        loss = torch.nn.MultiLabelSoftMarginLoss(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
+        loss = torch.nn.MultiLabelSoftMarginLoss()(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
         self.log("train_loss", loss)
         return loss
 
@@ -32,7 +32,7 @@ class PlanetModel(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self.model(x)
-        loss = torch.nn.MultiLabelSoftMarginLoss(y_hat, y)
+        loss = torch.nn.MultiLabelSoftMarginLoss()(y_hat, y)
         self.log("val_loss", loss)
         self.log("val_accuracy", (y_hat.argmax(1) == y).float().mean())
 
