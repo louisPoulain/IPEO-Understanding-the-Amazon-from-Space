@@ -50,7 +50,7 @@ class AtmosClassifier(nn.Module):
     def __init__(self, in_f):
         super().__init__()
         self.linear = nn.Linear(in_features=in_f, out_features=4)
-        self.softmax = nn.Softmax()
+        self.softmax = nn.Softmax(dim=-1)
         self.atmos_classifier = nn.Sequential(self.linear, self.softmax)
 
     def forward(self, x):
