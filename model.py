@@ -34,7 +34,9 @@ class PlanetModel(pl.LightningModule):
         y_hat = self.model(x)
         loss = torch.nn.MultiLabelSoftMarginLoss()(y_hat, y)
         self.log("val_loss", loss)
-        self.log("val_accuracy", (y_hat.argmax(1) == y).float().mean())
+        y_tmp = y_hat.clone()
+        y_tmp[y_tmp>0.6] = 1
+        self.log("val_accuracy", (y_tmp == y).float().mean())
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)
