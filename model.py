@@ -33,6 +33,7 @@ class PlanetModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = torch.nn.MultiLabelSoftMarginLoss()(y_hat, y)
+        print(loss)
         self.log("val_loss", loss)
         y_tmp = y_hat.clone()
         y_tmp[y_tmp>0.6] = 1
