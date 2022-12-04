@@ -54,7 +54,7 @@ class AtmosClassifier(nn.Module):
         self.atmos_classifier = nn.Sequential(self.linear, self.softmax)
 
     def forward(self, x):
-        x = x.flatten()
+        x = x.view(x.shape[0], -1)
         return self.atmos_classifier(x)
 
 class GroundClassifier(nn.Module):
@@ -65,7 +65,7 @@ class GroundClassifier(nn.Module):
         self.ground_classifier = nn.Sequential(self.linear)
 
     def forward(self, x):
-        x = x.flatten()
+        x = x.view(x.shape[0], -1)
         return self.ground_classifier(x)
 
 class Classfier(nn.Module):
@@ -76,7 +76,6 @@ class Classfier(nn.Module):
         self.atmos_classifier = AtmosClassifier(in_f)
 
     def forward(self, x):
-        x = x.flatten()
-        return torch.cat((self.atmos_classifier(x), self.ground_classifier(x)))
+        return torch.cat((self.atmos_classifier(x), self.ground_classifier(x)), dim=1)
 
 
