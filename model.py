@@ -40,7 +40,7 @@ class PlanetModel(pl.LightningModule):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)
         
 class testModel(nn.Module):
-    def __init__(self, pretrained:bool=False):
+    def __init__(self, pretrained:bool=False, max_channels=1024):
         super().__init__()
         self.pretrained = pretrained
         if self.pretrained:
@@ -53,9 +53,9 @@ class testModel(nn.Module):
             layer5 = blk.DownSample(in_c=32, out_c=64, kernel_size=3, nb_conv=1)    #16x16
             layer6 = blk.DownSample(in_c=64, out_c=128, kernel_size=3, nb_conv=1)    #8x8
             layer7 = blk.DownSample(in_c=128, out_c=256, kernel_size=3, nb_conv=1)    #4x4
-            layer8 = blk.DownSample(in_c=256, out_c=512, kernel_size=3, nb_conv=1)    #2x2
-            layer9 = blk.DownSample(in_c=512, out_c=1024, kernel_size=3, nb_conv=1)    #1x1
-            classifier = blk.Classfier(in_f=1024)
+            layer8 = blk.DownSample(in_c=256, out_c=max_channels, kernel_size=3, nb_conv=1)    #2x2
+            layer9 = blk.DownSample(in_c=max_channels, out_c=max_channels, kernel_size=3, nb_conv=1)    #1x1
+            classifier = blk.Classfier(in_f=max_channels)
             self.model = nn.Sequential(layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, classifier)
 
 
