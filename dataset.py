@@ -58,12 +58,12 @@ class DatasetAmazon(Dataset):
         self.load_data()
 
     def __getitem__(self, index):
-        t1 = time.time()
+        #t1 = time.time()
         imgName, label = self.data[index]
         im = plt.imread(imgName)
-        img = torch.tensor(im, dtype=float)
-        print("getitem: ", time.time()-t1)
-        return img, label
+        img = torch.from_numpy(im)
+        #print("getitem: ", time.time()-t1)
+        return img.float(), label
 
     def __len__(self):
         return len(self.data)
