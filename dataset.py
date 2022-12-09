@@ -62,7 +62,7 @@ class DatasetAmazon(Dataset):
         imgName, label = self.data[index]
         im = plt.imread(imgName)
         print(im.shape)
-        im.transpose(2, 0, 1)
+        im = im.transpose(2, 0, 1)
         print(im.shape)
         img = torch.from_numpy(np.array(im))
         #print("getitem: ", time.time()-t1)
