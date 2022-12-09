@@ -61,7 +61,7 @@ class DatasetAmazon(Dataset):
         t1 = time.time()
         imgName, label = self.data[index]
         im = plt.imread(imgName)
-        img = torch.from_numpy(im)
+        img = torch.tensor(im, dtype=float)
         print("getitem: ", time.time()-t1)
         return img, label
 
