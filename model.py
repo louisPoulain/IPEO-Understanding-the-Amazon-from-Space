@@ -7,6 +7,7 @@ import torch.functional as F
 import torch.nn as nn
 import torchvision
 import blocks as blk
+import time
 
 
 class PlanetModel(pl.LightningModule):
@@ -19,20 +20,29 @@ class PlanetModel(pl.LightningModule):
         return self.model(x)
 
     def training_step(self, batch, batch_idx):
+        print("training step")
+        t = time.time()
         x, y = batch
         y_hat = self.model(x)
+        print("on a yhat:", time.time()-t)
         loss = self.loss(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
         self.log("train_loss", loss)
         return loss
 
     def predict_step(self, batch, batch_idx):
+        print("predict")
+        t = time.time()
         x, y = batch
         y_hat = self.model(x)
+        print("predict over:", time.time()-t)
         return y_hat, y
 
     def validation_step(self, batch, batch_idx):
+        print("valid")
+        t = time.time()
         x, y = batch
         y_hat = self.model(x)
+        print("on a la valid: ", time.time()-t)
         loss = self.loss(y_hat, y)
         self.log("val_loss", loss)
         self.log("val_accuracy", (y_hat == y).float().mean())
