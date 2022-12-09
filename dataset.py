@@ -8,6 +8,7 @@ from PIL import Image
 import pandas as pd
 import torchvision.transforms as T
 import time
+import matplotlib.pyplot as plt
 
 #def get_data(path):
 #    if not os.path.exists("/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip"):
@@ -74,7 +75,7 @@ class DatasetAmazon(Dataset):
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
-                img = Image.open(imgName)
+                img = plt.imread(imgName)
                 img = transform(img)
                 self.data.append((
                     img,
@@ -85,7 +86,7 @@ class DatasetAmazon(Dataset):
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
-                img = Image.open(imgName)
+                img = plt.imread(imgName) #img = Image.open(imgName)
                 img = transform(img)
                 self.data.append((
                     img,
@@ -96,7 +97,7 @@ class DatasetAmazon(Dataset):
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
-                img = Image.open(imgName)
+                img = plt.imread(imgName) #img = Image.open(imgName)
                 img = transform(img)
                 self.data.append((
                     img,
