@@ -36,7 +36,7 @@ class PlanetModel(pl.LightningModule):
         loss = self.loss(y_hat, y)
         print(loss)
         self.log("val_loss", loss)
-        self.log("val_accuracy", np.count_nonzero((y_hat>0 and y>0)).float().mean())
+        self.log("val_accuracy", np.count_nonzero(np.logical_and(y_hat>0, y>0)).float().mean())
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)

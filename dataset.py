@@ -55,7 +55,6 @@ class DatasetAmazon(Dataset):
         }
         ########################################
         self.LABEL_CLASSES = pd.read_pickle(path_to_labels)
-        print(self.SPLITS['train'].shape, self.SPLITS['val'].shape, self.SPLITS['test'].shape)
         self.load_data()
 
     def __getitem__(self, index):
