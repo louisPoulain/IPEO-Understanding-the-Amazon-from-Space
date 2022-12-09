@@ -34,7 +34,6 @@ class PlanetModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = self.loss(y_hat, y)
-        print(loss)
         self.log("val_loss", loss)
         self.log("val_accuracy", (y_hat == y).float().mean()) # Hamming distance, not the best one though
 
