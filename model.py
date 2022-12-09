@@ -3,12 +3,11 @@ import pytorch_lightning as pl
 #from pytorch_lightning.callbacks import ModelCheckpoint
 
 import torch
-import torch.functional as F
 import torch.nn as nn
 import torchvision
 import blocks as blk
 import time
-
+import numpy as np
 
 class PlanetModel(pl.LightningModule):
     def __init__(self, model = None):
@@ -35,8 +34,9 @@ class PlanetModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = self.loss(y_hat, y)
+        print(loss)
         self.log("val_loss", loss)
-        self.log("val_accuracy", (y_hat == y).float().mean())
+        self.log("val_accuracy", np.count_nonzero((y_hat>0 and y>0)).float().mean())
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)
