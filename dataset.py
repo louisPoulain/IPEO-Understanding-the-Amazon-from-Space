@@ -56,10 +56,16 @@ class DatasetAmazon(Dataset):
         self.load_data()
 
     def __getitem__(self, index):
+        t1 = time.time()
         im_name, label = self.data[index]
+        print("loading: ", time.time()-t1)
+        t2 = time.time()
         img = Image.open(im_name)
+        print("openend im: ", time.time()-t2)
+        t3 = time.time()
         transform = T.ToTensor()
         img = transform(img)
+        print("trasnformed: ", time.time()-t3)
         return img, label
 
     def __len__(self):
