@@ -7,6 +7,7 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 import torchvision.transforms as T
+import time
 
 #def get_data(path):
 #    if not os.path.exists("/content/drive/MyDrive/Colab_Notebooks/Observation-earth/IPEO_Planet_project.zip"):
@@ -65,6 +66,7 @@ class DatasetAmazon(Dataset):
         return len(self.data)
 
     def load_data(self):
+        t = time.time()
         data_loc = "../IPEO_Planet_project/"
         self.data = []                                  # list of tuples of (image path, label class)
         if self.val:
@@ -104,6 +106,7 @@ class DatasetAmazon(Dataset):
             else:
                 print('** Reduce the data-set by a factor 100 (use --full for the full thing)')
                 self.data = self.data[0:100:-1]
+        print("loading took ", time.time()-t)
 
 
 
