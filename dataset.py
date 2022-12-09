@@ -55,6 +55,7 @@ class DatasetAmazon(Dataset):
         }
         ########################################
         self.LABEL_CLASSES = pd.read_pickle(path_to_labels)
+        print(self.SPLITS)
         self.load_data()
 
     def __getitem__(self, index):
@@ -75,6 +76,7 @@ class DatasetAmazon(Dataset):
         self.data = []                                  # list of tuples of (image path, label class)
         #transform = T.ToTensor()
         if self.val:
+            print("Loading validation data")
             for imgIndex in self.SPLITS['val']:
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
@@ -86,6 +88,7 @@ class DatasetAmazon(Dataset):
                     self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         elif self.test:
+            print("Loading test data")
             for imgIndex in self.SPLITS['test']:
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
@@ -97,6 +100,7 @@ class DatasetAmazon(Dataset):
                     self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         else:
+            print("Loading training data")
             for imgIndex in self.SPLITS['train']:
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
