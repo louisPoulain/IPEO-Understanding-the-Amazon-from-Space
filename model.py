@@ -25,7 +25,9 @@ class PlanetModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         print("on a yhat:", time.time()-t)
+        t2 = time.time()
         loss = self.loss(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
+        print("la loss a pris: ", time.time()-t2)
         self.log("train_loss", loss)
         return loss
 
