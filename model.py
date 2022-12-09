@@ -36,7 +36,7 @@ class PlanetModel(pl.LightningModule):
         loss = self.loss(y_hat, y)
         print(loss)
         self.log("val_loss", loss)
-        self.log("val_accuracy", torch.Tensor(np.count_nonzero(np.logical_and(y_hat.cpu()>0, y.cpu()>0))).float().mean())
+        self.log("val_accuracy", (y_hat == y).float().mean()) # Hamming distance, not the best one though
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)
