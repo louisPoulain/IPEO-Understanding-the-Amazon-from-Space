@@ -57,15 +57,8 @@ class DatasetAmazon(Dataset):
 
     def __getitem__(self, index):
         t1 = time.time()
-        im_name, label = self.data[index]
-        print("loading: ", time.time()-t1)
-        t2 = time.time()
-        img = Image.open(im_name)
-        print("openend im: ", time.time()-t2)
-        t3 = time.time()
-        transform = T.ToTensor()
-        img = transform(img)
-        print("trasnformed: ", time.time()-t3)
+        img, label = self.data[index]
+        print("getitem: ", time.time()-t1)
         return img, label
 
     def __len__(self):
@@ -75,13 +68,16 @@ class DatasetAmazon(Dataset):
         t = time.time()
         data_loc = "../IPEO_Planet_project/"
         self.data = []                                  # list of tuples of (image path, label class)
+        transform = T.ToTensor()
         if self.val:
             for imgIndex in self.SPLITS['val']:
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
+                img = Image.open(imgName)
+                img = transform(img)
                 self.data.append((
-                    imgName,
+                    img,
                     self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         elif self.test:
@@ -89,8 +85,10 @@ class DatasetAmazon(Dataset):
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
+                img = Image.open(imgName)
+                img = transform(img)
                 self.data.append((
-                    imgName,
+                    img,
                     self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         else:
@@ -98,8 +96,10 @@ class DatasetAmazon(Dataset):
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
                 # example format: 'baseFolder/agricultural/agricultural07.tif'
+                img = Image.open(imgName)
+                img = transform(img)
                 self.data.append((
-                    imgName,
+                    img,
                     self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         if self.full:
