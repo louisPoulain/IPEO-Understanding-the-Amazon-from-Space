@@ -46,7 +46,7 @@ class DatasetAmazon(Dataset):
 
         ###### A FAIRE PLUS INTELLIGEMMENT #####
         train_stop = int(np.floor(self.split[0]*40479))
-        val_stop = int(np.floor(self.split[0]+self.split[1]*40479))
+        val_stop = int(np.floor((self.split[0]+self.split[1])*40479))
         
         self.SPLITS = {
         'train': np.arange(0, train_stop),    
