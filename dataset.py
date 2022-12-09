@@ -49,13 +49,13 @@ class DatasetAmazon(Dataset):
         val_stop = int(np.floor(self.split[0]+self.split[1]*40479))
         
         self.SPLITS = {
-        'train': list(range(0, train_stop)),    
-        'val':   list(range(train_stop+1, val_stop)),   
-        'test':  list(range(val_stop+1, 40479))   
+        'train': np.arange(0, train_stop),    
+        'val':   np.arange(train_stop+1, val_stop),   
+        'test':  np.arange(val_stop+1, 40479)  
         }
         ########################################
         self.LABEL_CLASSES = pd.read_pickle(path_to_labels)
-        print(self.SPLITS)
+        print(self.SPLITS['train'].shape, self.SPLITS['val'].shape, self.SPLITS['test'].shape)
         self.load_data()
 
     def __getitem__(self, index):
@@ -76,7 +76,7 @@ class DatasetAmazon(Dataset):
         self.data = []                                  # list of tuples of (image path, label class)
         #transform = T.ToTensor()
         if self.val:
-            print("Loading validation data")
+            print(f"Loading validation data ({self.SPLITS['val'].shape[0]} images)")
             for imgIndex in self.SPLITS['val']:
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
@@ -88,7 +88,7 @@ class DatasetAmazon(Dataset):
                     self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         elif self.test:
-            print("Loading test data")
+            print(f"Loading test data ({self.SPLITS['test'].shape[0]} images)")
             for imgIndex in self.SPLITS['test']:
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
@@ -100,7 +100,7 @@ class DatasetAmazon(Dataset):
                     self.LABEL_CLASSES.iloc[imgIndex].values         # get index for label class
                 ))
         else:
-            print("Loading training data")
+            print(f"Loading training data ({self.SPLITS['train'].shape[0]} images)")
             for imgIndex in self.SPLITS['train']:
                 imgName = os.path.join(data_loc, 
                                 f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
