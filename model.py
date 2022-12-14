@@ -15,6 +15,7 @@ class custom_loss(nn.Module):
         self.loss1 = torch.nn.CrossEntropyLoss()
         self.loss2 = torch.nn.MultiLabelSoftMarginLoss()
     def forward(self, y_hat, y):
+        print(y_hat.shape, y.shape)
         loss_atmos = self.loss1(y_hat[:, :4], y[:, :4])
         loss_ground = self.loss2(y_hat[:, 4:], y[:, 4:])
         return loss_atmos+loss_ground
