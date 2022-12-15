@@ -21,7 +21,7 @@ def Jaccard_index(y_pred, y, threshold=3):
     # "intersection over union" i.e. number of correct pred over number of true+pred labels
     new_pred = transform_pred(y_pred=y_pred, threshold=threshold)
     intersection = (new_pred==y).count_nonzero()
-    union = new_pred.count_nonzero() + y.count_nonzero() - intersection
+    union = (new_pred+y>0).count_nonzero()
     return intersection/union
 
 
