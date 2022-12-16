@@ -40,7 +40,7 @@ class DatasetAmazon(Dataset):
 
         ###### A FAIRE PLUS INTELLIGEMMENT #####
         indexes = np.arange(stop=40479)
-        indexes = np.random.shuffle(indexes)
+        np.random.shuffle(indexes)
         train_stop = int(np.floor(self.split[0]*len(indexes)))
         val_stop = int(np.floor((self.split[0]+self.split[1])*len(indexes)))
         
