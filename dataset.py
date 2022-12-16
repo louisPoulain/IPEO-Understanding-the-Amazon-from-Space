@@ -80,7 +80,7 @@ class DatasetAmazon(Dataset):
                 if self.read_npy:
                     imgName = os.path.join(data_loc,
                             f'train-jpg/numpy_ndarray_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}.npy')
-                    self.data.append((imgName, imgIndex-imgIndex//1000)*1000, self.LABEL_CLASSES.iloc[imgIndex].values))
+                    self.data.append((imgName, imgIndex-(imgIndex//1000)*1000, self.LABEL_CLASSES.iloc[imgIndex].values))
                 else:
                     imgName = os.path.join(data_loc, 
                             f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
@@ -91,7 +91,7 @@ class DatasetAmazon(Dataset):
                 if self.read_npy:
                     imgName = os.path.join(data_loc,
                             f'train-jpg/numpy_ndarray_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}.npy')
-                    self.data.append((imgName, imgIndex-imgIndex//1000)*1000, self.LABEL_CLASSES.iloc[imgIndex].values))
+                    self.data.append((imgName, imgIndex-(imgIndex//1000)*1000, self.LABEL_CLASSES.iloc[imgIndex].values))
                 else:
                     imgName = os.path.join(data_loc, 
                             f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
@@ -102,7 +102,7 @@ class DatasetAmazon(Dataset):
                 if self.read_npy:
                     imgName = os.path.join(data_loc,
                             f'train-jpg/numpy_ndarray_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}.npy')
-                    self.data.append((imgName, imgIndex-imgIndex//1000)*1000, self.LABEL_CLASSES.iloc[imgIndex].values))
+                    self.data.append((imgName, imgIndex-(imgIndex//1000)*1000, self.LABEL_CLASSES.iloc[imgIndex].values))
                 else:
                     imgName = os.path.join(data_loc, 
                             f'train-jpg/train_{(imgIndex//1000)*1000}-{(imgIndex//1000+1)*1000-1}/train_{str(imgIndex)}.jpg') 
