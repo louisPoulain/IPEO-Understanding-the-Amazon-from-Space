@@ -46,8 +46,8 @@ class DatasetAmazon(Dataset):
         
         self.SPLITS = {
         'train': indexes[:train_stop],    
-        'val':   indexes[train_stop+1, val_stop],   
-        'test':  indexes[val_stop+1, len(indexes)]  
+        'val':   indexes[train_stop+1:val_stop],   
+        'test':  indexes[val_stop+1:len(indexes)]  
         }
         ########################################
         self.LABEL_CLASSES = pd.read_pickle(path_to_labels)
