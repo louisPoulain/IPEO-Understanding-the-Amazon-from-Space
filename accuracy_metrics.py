@@ -16,7 +16,7 @@ def transform_pred(y_pred, threshold=3):
 def Hamming_distance(y_pred, y, threshold=3):
     # number of "bits" we need to chane to get the correct prediction
     new_pred = transform_pred(y_pred=y_pred, threshold=threshold)
-    res = (np.abs(new_pred-y)==1).float().mean()
+    res = (torch.abs(new_pred-y)==1).float().mean()
     return res
 
 def overall_acc(y_pred, y, threshold=3):
