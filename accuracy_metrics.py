@@ -21,7 +21,7 @@ def Hamming(y_pred, y, threshold=3):
 
 def f1_score(y_pred, y, threshold=3):
     new_pred = transform_pred(y_pred=y_pred, threshold=threshold)
-    res = classification_report(y_pred=new_pred, y_true=y, output_dict=True)
+    res = classification_report(y_pred=new_pred.detach().cpu(), y_true=y.detach().cpu(), output_dict=True)
     f1 = np.mean(res["f1-score"]) # mean f1-score
     return f1
 
