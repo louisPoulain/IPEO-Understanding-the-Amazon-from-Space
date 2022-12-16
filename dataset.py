@@ -113,10 +113,10 @@ class DatasetAmazon(Dataset):
         else:
             if self.tiny:
                 print('** Reduce the data-set to the tiny setup (factor of 1000)')
-                self.data = self.data[0:1000:-1]
+                self.data = self.data[0:-1:1000]
             else:
                 print('** Reduce the data-set by a factor 100 (use --full for the full thing)')
-                self.data = self.data[0:100:-1]
+                self.data = self.data[0:-1:100]
         print("loading took ", time.time()-t)
 
 
