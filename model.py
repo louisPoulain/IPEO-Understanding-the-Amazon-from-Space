@@ -8,7 +8,7 @@ import torchvision
 import blocks as blk
 import time
 import numpy as np
-from accuracy_metrics import Hamming, f1_score
+from accuracy_metrics import Hamming, overall_acc
 
 
 class custom_loss(nn.Module):
@@ -48,9 +48,8 @@ class PlanetModel(pl.LightningModule):
         y_hat = self.model(x)
         loss = self.loss(y_hat, y)
         self.log("val_loss", loss)
-        self.log("hamming_accuracy", Hamming(y_hat, y, threshold=3))
-        self.log("f1-score", f1_score(y_hat, y, threshold=3))
-        #self.log("val_accuracy", (y_hat == y).float().mean()) # Hamming distance, not the best one though
+        self.log("val_accuracy", overall_acc(y_hat, y, threshold=3))
+        self.log("hamming_dist", Hamming(y_hat, y, threshold=3))
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)
