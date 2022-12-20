@@ -66,7 +66,7 @@ class testModel(nn.Module):
         layer7 = blk.DownSample(in_c=128, out_c=256, kernel_size=3, nb_conv=2)    #4x4
         layer8 = blk.DownSample(in_c=256, out_c=max_channels, kernel_size=3, nb_conv=2)    #2x2
         layer9 = blk.DownSample(in_c=max_channels, out_c=max_channels, kernel_size=3, nb_conv=2)    #1x1
-        classifier = blk.Classfier(in_f=max_channels)
+        classifier = blk.Classifier(in_f=max_channels)
         self.model = nn.Sequential(layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, classifier)
 
     def forward(self, x):
