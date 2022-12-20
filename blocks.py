@@ -68,7 +68,7 @@ class GroundClassifier(nn.Module):
         x = x.view(x.shape[0], -1)
         return self.ground_classifier(x)
 
-class Classfier(nn.Module):
+class Classifier(nn.Module):
     # given a laten layer representation, gives prediction for atmospheric labels
     def __init__(self, in_f):
         super().__init__()
