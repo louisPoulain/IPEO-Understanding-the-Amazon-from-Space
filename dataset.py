@@ -38,7 +38,6 @@ class DatasetAmazon(Dataset):
         if not len(self.split) == 3:
             raise ValueError('You need to provide a splitting value for the train, val, and test (3 values)')
 
-        ###### A FAIRE PLUS INTELLIGEMMENT #####
         indexes = np.arange(stop=40479)
         np.random.shuffle(indexes)
         train_stop = int(np.floor(self.split[0]*len(indexes)))

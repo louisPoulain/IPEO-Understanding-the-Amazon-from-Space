@@ -75,17 +75,19 @@ class testModel(nn.Module):
 class ResNet(nn.module):
     def __init__(self, depth=18):
         super().__init__()
-        match depth:
-            case 18:
-                backbone = torchvision.models.resnet18(weights='DEFAULT')
-            case 34:
-                backbone = torchvision.models.resnet34(weights='DEFAULT')
-            case 50:
-                backbone = torchvision.models.resnet50(weights='DEFAULT')
-            case 101:
-                backbone = torchvision.models.resnet101(weights='DEFAULT')
-            case 152:
-                backbone = torchvision.models.resnet152(weights='DEFAULT')
+        if depth==18:
+            backbone = torchvision.models.resnet18(weights='DEFAULT')
+        elif depth==34:
+            backbone = torchvision.models.resnet34(weights='DEFAULT')
+        elif depth==50:
+            backbone = torchvision.models.resnet50(weights='DEFAULT')
+        elif depth==101:
+            backbone = torchvision.models.resnet101(weights='DEFAULT')
+        elif depth==152:
+            backbone = torchvision.models.resnet152(weights='DEFAULT')
+        else:
+            print("Use a value in [18, 34, 50, 101, 152]. Using 18 right now...")
+            backbone = torchvision.models.resnet18(weights='DEFAULT')
         
         classifier = blk.Classifier(in_f=512)
         self.model = nn.Sequential(*list(backbone.children())[:-1], classifier)
