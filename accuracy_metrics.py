@@ -9,7 +9,9 @@ def transform_pred(y_pred, threshold=3):
     # we take a high threshold because the MultiLabelLoss favorizes high numbers for the prediction
     pred_ground = y_pred[:, 4:].clone().detach()
     pred_ground = torch.where(pred_ground>threshold, 1, 0)
-    new_pred = torch.cat((y_pred[:, :4].clone().detach(), pred_ground), dim=1)
+    pred_atmos = y_pred[:, :4].clone().detach()
+    pred_atmos = torch.where(pred_atmos>=pred_atmos.max(dim=0)[0], 1, 0)
+    new_pred = torch.cat((pred_atmos, pred_ground), dim=1)
     return new_pred
 
 
