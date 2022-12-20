@@ -6,7 +6,7 @@ class SimpleConv(nn.Module):
     def __init__(self, in_c, out_c, kernel_size=3):
         super().__init__()
         self.conv1 = nn.Conv2d(in_channels=in_c, out_channels=out_c, kernel_size=kernel_size, padding=kernel_size//2)
-        self.b_norm1 = nn.BatchNorm2d(num_features=out_c)
+        self.b_norm1 = nn.BatchNorm2d(num_features=out_c, momentum=0.1)
         self.lrelu = nn.LeakyReLU(inplace=True)
         
         self.one_conv = nn.Sequential(self.conv1, self.b_norm1, self.lrelu)
@@ -21,10 +21,10 @@ class DoubleConv(nn.Module):
         if mid_c is None:
             mid_c = out_c
         conv1 = nn.Conv2d(in_channels=in_c, out_channels=mid_c, kernel_size=kernel_size, padding=kernel_size//2)
-        b_norm1 = nn.BatchNorm2d(num_features=mid_c)
+        b_norm1 = nn.BatchNorm2d(num_features=mid_c, momentum=0.1)
         lrelu = nn.LeakyReLU(inplace=True)
         conv2 = nn.Conv2d(in_channels=mid_c, out_channels=out_c, kernel_size=kernel_size, padding=kernel_size//2)
-        b_norm2 = nn.BatchNorm2d(num_features=out_c)
+        b_norm2 = nn.BatchNorm2d(num_features=out_c, momentum=0.1)
         self.dbl_conv = nn.Sequential(conv1, b_norm1, lrelu,conv2,b_norm2, lrelu)
 
     def forward(self, x):
