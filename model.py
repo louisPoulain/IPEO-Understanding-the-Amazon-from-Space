@@ -72,7 +72,7 @@ class testModel(nn.Module):
     def forward(self, x):
         return self.model(x)
 
-class ResNet(nn.module):
+class ResNet(nn.Module):
     def __init__(self, depth=18):
         super().__init__()
         if depth==18:
