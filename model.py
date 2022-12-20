@@ -87,7 +87,7 @@ class ResNet(nn.module):
             case 152:
                 backbone = torchvision.models.resnet152(weights='DEFAULT')
         
-        classifier = blk.classifier(in_f=512)
+        classifier = blk.Classifier(in_f=512)
         self.model = nn.Sequential(*list(backbone.children())[:-1], classifier)
     
     def forward(self, x):
