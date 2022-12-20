@@ -55,24 +55,40 @@ class PlanetModel(pl.LightningModule):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)
         
 class testModel(nn.Module):
-    def __init__(self, pretrained:bool=False, max_channels=1024):
+    def __init__(self, max_channels=1024):
         super().__init__()
-        self.pretrained = pretrained
-        if self.pretrained:
-            self.model = torchvision.models.AlexNet() ## A CHANGER
-        else:
-            layer1 = blk.DoubleConv(in_c=4, out_c=8, mid_c=6, kernel_size=3) # 256x256
-            layer2 = blk.DownSample(in_c=8, out_c=12, kernel_size=3, nb_conv=2)    # 128x128
-            layer3 = blk.DownSample(in_c=12, out_c=16, kernel_size=3, nb_conv=2)    # 64x64
-            layer4 = blk.DownSample(in_c=16, out_c=32, kernel_size=3, nb_conv=2)    #32x32
-            layer5 = blk.DownSample(in_c=32, out_c=64, kernel_size=3, nb_conv=2)    #16x16
-            layer6 = blk.DownSample(in_c=64, out_c=128, kernel_size=3, nb_conv=2)    #8x8
-            layer7 = blk.DownSample(in_c=128, out_c=256, kernel_size=3, nb_conv=2)    #4x4
-            layer8 = blk.DownSample(in_c=256, out_c=max_channels, kernel_size=3, nb_conv=2)    #2x2
-            layer9 = blk.DownSample(in_c=max_channels, out_c=max_channels, kernel_size=3, nb_conv=2)    #1x1
-            classifier = blk.Classfier(in_f=max_channels)
-            self.model = nn.Sequential(layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, classifier)
+        layer1 = blk.DoubleConv(in_c=4, out_c=8, mid_c=6, kernel_size=3) # 256x256
+        layer2 = blk.DownSample(in_c=8, out_c=12, kernel_size=3, nb_conv=2)    # 128x128
+        layer3 = blk.DownSample(in_c=12, out_c=16, kernel_size=3, nb_conv=2)    # 64x64
+        layer4 = blk.DownSample(in_c=16, out_c=32, kernel_size=3, nb_conv=2)    #32x32
+        layer5 = blk.DownSample(in_c=32, out_c=64, kernel_size=3, nb_conv=2)    #16x16
+        layer6 = blk.DownSample(in_c=64, out_c=128, kernel_size=3, nb_conv=2)    #8x8
+        layer7 = blk.DownSample(in_c=128, out_c=256, kernel_size=3, nb_conv=2)    #4x4
+        layer8 = blk.DownSample(in_c=256, out_c=max_channels, kernel_size=3, nb_conv=2)    #2x2
+        layer9 = blk.DownSample(in_c=max_channels, out_c=max_channels, kernel_size=3, nb_conv=2)    #1x1
+        classifier = blk.Classfier(in_f=max_channels)
+        self.model = nn.Sequential(layer1, layer2, layer3, layer4, layer5, layer6, layer7, layer8, layer9, classifier)
 
+    def forward(self, x):
+        return self.model(x)
 
+class ResNet(nn.module):
+    def __init__(self, depth=18):
+        super().__init__()
+        match depth:
+            case 18:
+                backbone = torchvision.models.resnet18(weights='DEFAULT')
+            case 34:
+                backbone = torchvision.models.resnet34(weights='DEFAULT')
+            case 50:
+                backbone = torchvision.models.resnet50(weights='DEFAULT')
+            case 101:
+                backbone = torchvision.models.resnet101(weights='DEFAULT')
+            case 152:
+                backbone = torchvision.models.resnet152(weights='DEFAULT')
+        
+        classifier = blk.classifier(in_f=512)
+        self.model = nn.Sequential(*list(backbone.children())[:-1], classifier)
+    
     def forward(self, x):
         return self.model(x)
