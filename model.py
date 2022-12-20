@@ -89,8 +89,10 @@ class ResNet(nn.Module):
             print("Use a value in [18, 34, 50, 101, 152]. Using 18 right now...")
             backbone = torchvision.models.resnet18(weights='DEFAULT')
         
+        # change the first layer to a conv first 4 input channels (instead of 3)
+        first_layer = nn.Conv2d(4, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
         classifier = blk.Classifier(in_f=512)
-        self.model = nn.Sequential(*list(backbone.children())[:-1], classifier)
+        self.model = nn.Sequential(first_layer, *list(backbone.children())[1:-1], classifier)
     
     def forward(self, x):
         return self.model(x)
