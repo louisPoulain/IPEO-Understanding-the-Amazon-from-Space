@@ -35,7 +35,7 @@ class PlanetModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = self.loss(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
-        self.log("train_loss", loss)
+        self.log("train_loss", loss, on_step=False, on_epoch=True)
         return loss
 
     def predict_step(self, batch, batch_idx):
@@ -47,9 +47,9 @@ class PlanetModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = self.loss(y_hat, y)
-        self.log("val_loss", loss)
-        self.log("val_accuracy", overall_acc(y_hat, y, threshold=3))
-        self.log("hamming_dist", Hamming_distance(y_hat, y, threshold=3))
+        self.log("val_loss", loss, on_step=False, on_epoch=True)
+        self.log("val_accuracy", overall_acc(y_hat, y, threshold=3), on_step=False, on_epoch=True)
+        self.log("hamming_dist", Hamming_distance(y_hat, y, threshold=3), on_step=False, on_epoch=True)
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.model.parameters(), lr=0.001)
