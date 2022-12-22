@@ -12,6 +12,9 @@ import time
 import matplotlib.pyplot as plt
 
 
+def get_all_indexes():
+    index_file = np.load("List_label_rare/list_label_rare.npy", allow_pickle=True)
+    return index_file
 
 
 class DatasetAmazon(Dataset):
@@ -40,8 +43,8 @@ class DatasetAmazon(Dataset):
 
         # Separate rare and frequent indexes
         all_ind = get_all_indexes()
-        labels = ["frequent", "conventional_mine", "bare_ground", "artisinal_mine",
-                 "blooming", "blow_down", "select_logging", "slash_burn"]
+        labels = ["blow_down", "conventional_mine", "slash_burn", "blooming", 
+                    "artisinal_mine", "select_logging", "bare_ground", "frequent"]
         dict_labels = dict([(labels[i], all_ind[i]) for i in range(7)])          
 
         # Splitting procedure
