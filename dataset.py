@@ -45,7 +45,7 @@ class DatasetAmazon(Dataset):
         all_ind = get_all_indexes()
         labels = ["blow_down", "conventional_mine", "slash_burn", "blooming", 
                     "artisinal_mine", "select_logging", "bare_ground", "frequent"]
-        dict_labels = dict([(labels[i], all_ind[i]) for i in range(7)])          
+        dict_labels = dict([(labels[i], all_ind[i]) for i in range(8)])          
 
         # Splitting procedure
         for label in dict_labels.keys():
