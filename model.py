@@ -12,10 +12,11 @@ from accuracy_metrics import Hamming_distance, overall_acc
 
 
 class custom_loss(nn.Module):
-    def __init__(self):
+    def __init__(self, weights=[1/2697,1/28431,1/2089,1/7261,1/12315,1/100,1/862,1/339,1/332,
+                                1/98,1/4477,1/3660,1/7411,1/37513,1/8071,1/340,1/209]):
         super().__init__()
-        self.loss1 = torch.nn.CrossEntropyLoss()
-        self.loss2 = torch.nn.MultiLabelSoftMarginLoss()
+        self.loss1 = torch.nn.CrossEntropyLoss(weight=weights[:4])
+        self.loss2 = torch.nn.MultiLabelSoftMarginLoss(weight=weights[4:])
     def forward(self, y_hat, y):
         y = y.float()
         loss_atmos = self.loss1(y_hat[:, :4], y[:, :4])
@@ -34,7 +35,7 @@ class PlanetModel(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self.model(x)
-        loss = self.loss(y_hat, y)  ## A VOIR SI ON VEUT CA COMME LOSS
+        loss = self.loss(y_hat, y) 
         self.log("train_loss", loss, on_step=False, on_epoch=True)
         return loss
 
