@@ -61,8 +61,9 @@ class GroundClassifier(nn.Module):
     # given a laten layer representation, gives prediction for ground labels
     def __init__(self, in_f):
         super().__init__()
-        self.linear = nn.Linear(in_features=in_f, out_features=13)
-        self.ground_classifier = nn.Sequential(self.linear)
+        linear = nn.Linear(in_features=in_f, out_features=13)
+        sigmoid = nn.Sigmoid()
+        self.ground_classifier = nn.Sequential(sigmoid, linear)
 
     def forward(self, x):
         x = x.view(x.shape[0], -1)
