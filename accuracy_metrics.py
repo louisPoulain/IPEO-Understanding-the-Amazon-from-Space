@@ -25,18 +25,11 @@ def overall_acc(y_pred, y, threshold=0.65):
     new_pred = transform_pred(y_pred=y_pred, threshold=threshold)
     return (new_pred==y).float().mean()
 
-def f1_score(y_pred, y, threshold=0.65):
-    new_pred = transform_pred(y_pred=y_pred, threshold=threshold)
-    res_atmos = classification_report(y_pred=new_pred[:, :4].detach().cpu(), y_true=y[:, :4].detach().cpu(), output_dict=True)
-    res_ground = classification_report(y_pred=new_pred[:, 4:].detach().cpu(), y_true=y[:, 4:].detach().cpu(), output_dict=True)
-    f1 = np.mean(res_atmos["f1-score"])+np.mean(res_ground["f1-score"]) # mean f1-score
-    return f1
-
-def Jaccard_index(y_pred, y, threshold=0.65):
-    # "intersection over union" i.e. number of correct pred over number of true+pred labels
-    new_pred = transform_pred(y_pred=y_pred, threshold=threshold)
-    intersection = (new_pred==y).count_nonzero()
-    union = (new_pred+y>0).count_nonzero()
-    return intersection/union
-
+def count_false(y_pred, y, threshold=0.65):
+    y_pred = transform_pred(y_pred, threshold)
+    false_positive = torch.zeros(y_pred.shape)
+    false_negative = torch.zeros(y_pred.shape)
+    false_positive += torch.where((y_pred-y)==1, 1, 0) # predict 1 when you should predict 0
+    false_negative += torch.where((y_pred-y)==-1, 1, 0) # predict 0 but should have predicted 1
+    return false_positive.numpy(), false_negative.numpy()
 
