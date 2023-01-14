@@ -10,7 +10,7 @@ def transform_pred(y_pred, threshold=0.65):
     pred_ground = y_pred[:, 4:].clone().detach()
     pred_ground = torch.where(pred_ground>threshold, 1, 0)
     pred_atmos = y_pred[:, :4].clone().detach()
-    pred_atmos = torch.where(pred_atmos>=pred_atmos.max(dim=0)[0], 1, 0)
+    pred_atmos = torch.where(pred_atmos>=pred_atmos.max(dim=1)[0].view(pred_atmos.shape[0], -1), 1, 0)
     new_pred = torch.cat((pred_atmos, pred_ground), dim=1)
     return new_pred
 

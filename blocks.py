@@ -63,7 +63,7 @@ class GroundClassifier(nn.Module):
         super().__init__()
         linear = nn.Linear(in_features=in_f, out_features=13)
         sigmoid = nn.Sigmoid()
-        self.ground_classifier = nn.Sequential(sigmoid, linear)
+        self.ground_classifier = nn.Sequential(linear, sigmoid)
 
     def forward(self, x):
         x = x.view(x.shape[0], -1)
