@@ -1,8 +1,8 @@
 # IPEO-Understanding-the-Amazon-from-Space
 
 ## Data
-download the chekpoints file, the train-jpg contains all the images provided for the project, download it if you don't already have it
-https://drive.google.com/drive/folders/1SS4wRKzELXB4qXrmHg8T_wfbjYX1xdIf?usp=share_link
+If you don't already have it, download the folder IPEO_Planet_project into the submission folder:  
+https://drive.google.com/drive/folders/1SS4wRKzELXB4qXrmHg8T_wfbjYX1xdIf?usp=share_link  
 The structure should be as follows:
  - Submission_folder  
    - IPEO-Understanding-theAmazon-from-Space  
