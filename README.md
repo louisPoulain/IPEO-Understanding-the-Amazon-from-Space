@@ -14,3 +14,6 @@
     cd IPEO-Understanding-the-Amazon-from-Space
     # start a jupyter session
     jupyter notebook
+
+    # when you are done, close the venv
+    deactivate
