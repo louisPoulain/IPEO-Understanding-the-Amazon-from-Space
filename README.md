@@ -15,5 +15,6 @@
     # start a jupyter session
     jupyter notebook  
 
-when you are done, close the venv
+when you are done, close the venv  
+
     deactivate
