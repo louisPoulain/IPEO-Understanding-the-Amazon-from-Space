@@ -1,31 +1,41 @@
 # IPEO-Understanding-the-Amazon-from-Space
 
+This project is part of the ENV-540 Image Processing for Earth Observation course at EPFL and aims to predict multiple labels on satellite images of the Amazon river and its surroundings. This is done by training a convolutional neural network on a dataset of 40479 labeled images.
+
+## Authors
+
+Louis Poulain--Auzéau, louis.poulain-auzeau@epfl.ch
+
+Basile Tornare, basile.tornare@epfl.ch
+
+Octavio Profeta, octavio.profetamachon@epfl.ch
 ## Data
-If you don't already have it, download the folder IPEO_Planet_project into the submission folder:  
-https://drive.google.com/drive/folders/1SS4wRKzELXB4qXrmHg8T_wfbjYX1xdIf?usp=share_link  
+Download the chekpoints file, the train-jpg contains all the images provided for the project, download it if you don't already have it
+https://drive.google.com/drive/folders/1SS4wRKzELXB4qXrmHg8T_wfbjYX1xdIf?usp=share_link
+
+## Folder setup
 The structure should be as follows:
  - Submission_folder  
-   - IPEO-Understanding-theAmazon-from-Space  
+   - IPEO-Understanding-the-Amazon-from-Space  
      - some code + logs + evaluation.ipynb
    - IPEO_Planet_project  
      - checkpoints  
      - train_labels.csv
      - train-jpg
-## Settings
 
-    # create a local virtual environment in the venv folder
-    python -m venv venv
-    # activate this environment
-    source venv/bin/activate
-    # install requirements
-    pip install -r requirements.txt
-    # Here you need to download the file containing data (cf above for the link)
-    
-    # cd in the good directory
-    cd IPEO-Understanding-the-Amazon-from-Space
-    # start a jupyter session
-    jupyter notebook  
+## Running
+### Create a local virtual environment in the venv folder
+python -m venv venv
+### Activate the newly created environment
+source venv/bin/activate
+### Install requirements
+pip install -r requirements.txt
+### Here you need to download the file containing data (cf above for the link)
 
-when you are done, close the venv  
-
-    deactivate
+### cd in the good directory
+cd IPEO-Understanding-the-Amazon-from-Space
+### Start a jupyter session
+jupyter notebook  
+### Run evaluation.ipynb
+### When you are done, close the venv
+deactivate
