@@ -8,3 +8,9 @@
     source venv/bin/activate
     # install requirements
     pip install -r requirements.txt
+    # Here you need to download the file containing data (see evaluation.ipynb or just above)
+    
+    # cd in the good directory
+    cd IPEO-Understanding-the-Amazon-from-Space
+    # start a jupyter session
+    jupyter-notebook
