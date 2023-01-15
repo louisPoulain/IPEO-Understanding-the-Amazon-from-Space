@@ -11,7 +11,8 @@ Basile Tornare, basile.tornare@epfl.ch
 Octavio Profeta, octavio.profetamachon@epfl.ch
 ## Data
 Download the IPEO_Planet_project folder don't already have it from here:  
-https://drive.google.com/drive/folders/1SS4wRKzELXB4qXrmHg8T_wfbjYX1xdIf?usp=share_link
+https://drive.google.com/drive/folders/1SS4wRKzELXB4qXrmHg8T_wfbjYX1xdIf?usp=share_link  
+Once one Drive, locate the folder just above, right click on the name and click download.  
 
 ## Folder setup
 The structure should be as follows:
