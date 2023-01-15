@@ -1,5 +1,7 @@
 # IPEO-Understanding-the-Amazon-from-Space
 
+## Settings
+
     # create a local virtual environment in the venv folder
     python -m venv venv
     # activate this environment
