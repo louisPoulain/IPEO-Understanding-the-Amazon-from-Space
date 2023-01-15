@@ -25,17 +25,23 @@ The structure should be as follows:
 
 ## Running
 ### Create a local virtual environment in the venv folder
-python -m venv venv
+
+    python -m venv venv
 ### Activate the newly created environment
-source venv/bin/activate
+
+    source venv/bin/activate
 ### Install requirements
-pip install -r requirements.txt
+
+    pip install -r requirements.txt
 ### Here you need to download the file containing data (cf above for the link)
 
 ### cd in the good directory
-cd IPEO-Understanding-the-Amazon-from-Space
+
+    cd IPEO-Understanding-the-Amazon-from-Space
 ### Start a jupyter session
-jupyter notebook  
+
+    jupyter notebook  
 ### Run evaluation.ipynb
 ### When you are done, close the venv
-deactivate
+
+    deactivate
