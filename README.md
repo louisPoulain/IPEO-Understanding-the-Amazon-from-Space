@@ -13,7 +13,7 @@
     # cd in the good directory
     cd IPEO-Understanding-the-Amazon-from-Space
     # start a jupyter session
-    jupyter notebook
+    jupyter notebook  
 
-    # when you are done, close the venv
+when you are done, close the venv
     deactivate
